@@ -10,8 +10,8 @@ BUILD       := build
 SOURCES     := source source/wifi
 INCLUDES    := include
 
-ARCH        := -march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft
-CFLAGS      := -g -Wall -Wextra -O2 -mword-relocations -ffunction-sections $(ARCH)
+ARCH        := -march=armv6k -mtune=mpcore -mfloat-abi=hard
+CFLAGS      := -g -Wall -Wextra -O2 -mword-relocations -ffunction-sections $(ARCH) -mtp=soft
 CFLAGS      += $(INCLUDE) -D__3DS__
 CXXFLAGS    := $(CFLAGS) -fno-rtti -fno-exceptions
 ASFLAGS     := -g $(ARCH)
