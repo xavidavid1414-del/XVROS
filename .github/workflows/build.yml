@@ -1,0 +1,25 @@
+name: XVROS Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: devkitpro/devkitarm:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build XVROS
+        run: make
+      - name: Upload 3DSX
+        uses: actions/upload-artifact@v4
+        with:
+          name: XVROS-3DSX
+          path: XVROS.3dsx
+          if-no-files-found: error
