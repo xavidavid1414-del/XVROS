@@ -19,7 +19,7 @@ New Nintendo 2DS XL, initially running as a homebrew application under the exist
 | Tools | Packaging, asset conversion, diagnostics and updates |
 | Firmware | Separate future boot-payload research and implementation |
 
-## Wi-Fi module
+## Core lifecycle module\n\nThe portable lifecycle API lives in `include/core/xvros_core.h` and `source/core/xvros_core.c`. It currently models initialization, update counting and orderly shutdown without touching hardware or allocating memory. Host-side tests live under `tests/` and run in GitHub Actions. This is a foundation for coordinating future services, not a standalone operating-system kernel or a bootable firmware image.\n\n## Wi-Fi module
 
 The `source/wifi/` module is deliberately separate from the interface. The first implementation reads the system-reported Wi-Fi signal level through libctru. It does not yet manage saved access points, enable/disable the radio, obtain IP configuration, open sockets, or host multiplayer rooms.
 
