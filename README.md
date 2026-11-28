@@ -19,9 +19,9 @@ Join the XVROS Discord community to follow development, share feedback and conne
 - [x] `.firm` and `.bin` targets documented as distinct deliverables
 - [ ] Verified FIRM boot-chain and container specification
 - [ ] Defined XVROS BIN layout and loader contract
-- [ ] Minimal system core and hardware initialization
+- [x] Portable core lifecycle foundation (host-tested)\n- [ ] Hardware initialization and device service integration
 - [ ] FIRM and BIN packaging tools
-- [ ] Automated structural validation
+- [x] Automated BIN and core lifecycle validation
 - [ ] Non-destructive hardware testing
 - [ ] Qualified `.firm` and `.bin` release artifacts
 
