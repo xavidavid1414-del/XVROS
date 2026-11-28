@@ -27,3 +27,13 @@ jobs:
         run: gcc -std=c11 -Wall -Wextra -Werror -pedantic firmware/xvbin.c firmware/test_xvbin.c -o xvbin-c-tests
       - name: Run C validator tests
         run: ./xvbin-c-tests
+
+  xvros-core-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Compile portable core tests with strict warnings
+        run: gcc -std=c11 -Wall -Wextra -Werror -pedantic -Iinclude source/core/xvros_core.c tests/test_xvros_core.c -o xvros-core-tests
+      - name: Run portable core tests
+        run: ./xvros-core-tests
