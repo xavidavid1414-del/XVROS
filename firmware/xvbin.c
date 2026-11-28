@@ -41,7 +41,6 @@ XvbinResult xvbin_validate(const uint8_t *data, size_t length, XvbinInfo *info)
     uint32_t payload_size;
     uint32_t entry_offset;
     uint32_t expected_crc;
-    size_t expected_length;
 
     if (data == NULL || info == NULL)
         return XVBIN_ERR_ARGUMENT;
@@ -70,11 +69,10 @@ XvbinResult xvbin_validate(const uint8_t *data, size_t length, XvbinInfo *info)
     if (read_le32(data + 28) != 0u)
         return XVBIN_ERR_RESERVED;
 
-    /* The explicit subtraction check prevents size_t addition overflow. */
-    if ((size_t)payload_size > (size_t)-1 - (size_t)payload_offset)
+    /* Compare against the remaining length; this avoids addition overflow. */
+    if (length < (size_t)payload_offset)
         return XVBIN_ERR_LENGTH;
-    expected_length = (size_t)payload_offset + (size_t)payload_size;
-    if (expected_length != length)
+    if ((size_t)payload_size != length - (size_t)payload_offset)
         return XVBIN_ERR_LENGTH;
     if (crc32_ieee(data + payload_offset, payload_size) != expected_crc)
         return XVBIN_ERR_CRC;
