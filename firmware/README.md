@@ -7,6 +7,24 @@ XVROS is being developed toward two firmware deliverables:
 
 Neither deliverable is implemented or available yet. The current homebrew build is only a development harness and must not be presented as the final XVROS product.
 
+## Intended startup behavior
+
+**User-facing goal:** on a New Nintendo 2DS XL, holding **START** while pressing **POWER** should enter the XVROS boot path. Starting the console without START should continue through the user's normal boot path.
+
+### Existing boot-chain behavior
+
+On a console already using Luma3DS, holding START during power-on opens Luma3DS's FIRM payload chainloader. FIRM payloads are discovered in `/luma/payloads/`. With multiple payloads, the user selects one from the chainloader; with only one payload, Luma3DS skips the selection menu and launches that payload. This is Luma3DS behavior, not code XVROS has implemented.
+
+Reference: [Luma3DS README — basic usage and chainloader](https://github.com/LumaTeam/Luma3DS#basic-usage).
+
+### XVROS integration requirement
+
+The first supported route will be a valid XVROS `.firm` payload launched by the existing Luma3DS chainloader. This provides the requested START-at-boot entry without replacing the console's existing boot manager.
+
+A later, separately reviewed boot-manager integration may be considered, but XVROS must not silently replace the user's existing boot path. Normal startup must remain recoverable, and the user must retain a clear way to return to their regular system.
+
+The exact one-button behavior depends on the payload arrangement and Luma3DS configuration. XVROS will document the tested setup; it will not claim that START directly launches XVROS until that behavior is verified on the target console.
+
 ## Hardware target
 
 Initial target: New Nintendo 2DS XL (Nintendo 3DS family), with compatibility claims limited to hardware and boot environments that have actually been tested.
@@ -32,6 +50,7 @@ Initial target: New Nintendo 2DS XL (Nintendo 3DS family), with compatibility cl
 
 - [x] Firmware target directory and initial format boundary documented
 - [x] Separate `.firm` and `.bin` deliverables identified
+- [x] START-at-power-on chainloader goal documented
 - [ ] Verified FIRM format specification and boot-path reference
 - [ ] Defined XVROS raw BIN format and loader contract
 - [ ] Minimal diagnostic core
