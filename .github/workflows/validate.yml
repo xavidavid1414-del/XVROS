@@ -1,0 +1,19 @@
+name: XVROS Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  xvbin-validator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run XVROS BIN validator tests
+        run: |
+          cd tools
+          python3 -m unittest -v
