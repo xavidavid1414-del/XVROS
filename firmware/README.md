@@ -41,7 +41,7 @@ Initial target: New Nintendo 2DS XL (Nintendo 3DS family), with compatibility cl
 
 ## XVROS BIN v1 validator
 
-A structural validator is available at `tools/validate_xvbin.py`. Its unit tests are in `tools/test_validate_xvbin.py`, and GitHub Actions runs them through `.github/workflows/validate.yml`.
+A Python structural validator is available at `tools/validate_xvbin.py`, with tests in `tools/test_validate_xvbin.py`. A portable C validator is available at `firmware/xvbin.c` with its API in `firmware/xvbin.h`; host tests are in `firmware/test_xvbin.c`. GitHub Actions runs both test suites, compiling the C implementation with strict warnings before executing its tests.
 
 The validator checks the v1 header, bounds, entry offset, exact file length and payload CRC-32. CRC-32 detects accidental corruption; it is not a signature. Passing validation does not mean a payload is executable or bootable.
 
@@ -58,8 +58,9 @@ The validator checks the v1 header, bounds, entry offset, exact file length and 
 - [x] Separate `.firm` and `.bin` deliverables identified
 - [x] START-at-power-on chainloader goal documented
 - [x] XVROS BIN v1 draft format specified
-- [x] Initial BIN structural validator and unit tests added
-- [ ] GitHub Actions validator run verified
+- [x] Initial Python BIN structural validator and unit tests added
+- [x] Portable C BIN validator and host tests added
+- [ ] GitHub Actions Python and C validator runs verified
 - [ ] Verified FIRM format specification and boot-path reference
 - [ ] Minimal diagnostic core
 - [ ] FIRM packer and structural validator
