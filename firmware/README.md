@@ -3,9 +3,9 @@
 XVROS is being developed toward two firmware deliverables:
 
 - `.firm` — a genuine Nintendo 3DS FIRM-format image intended for a documented, compatible boot path.
-- `.bin` — a raw binary artifact with a separately documented purpose, memory layout and loading method. The extension alone does not define a boot format.
+- `.bin` — the project-defined XVROS BIN v1 container, specified in [XVROS_BIN_FORMAT.md](../docs/XVROS_BIN_FORMAT.md). It is a packaging format, not a Nintendo 3DS boot format.
 
-Neither deliverable is implemented or available yet. The current homebrew build is only a development harness and must not be presented as the final XVROS product.
+Neither deliverable is implemented as an executable/bootable release yet. The current homebrew build is only a development harness and must not be presented as the final XVROS product.
 
 ## Intended startup behavior
 
@@ -31,13 +31,19 @@ Initial target: New Nintendo 2DS XL (Nintendo 3DS family), with compatibility cl
 
 ## Engineering milestones
 
-1. **Boot-chain research:** document the supported boot path, required headers, section layout, load addresses, entry points and hardware initialization responsibilities.
-2. **Binary specification:** define what the XVROS `.bin` contains, its exact layout, versioning, alignment and validation rules. Do not treat a generic raw binary as interchangeable with FIRM.
+1. **Boot-chain research:** verify the supported FIRM boot path, headers, section layout, load addresses, entry points and hardware initialization responsibilities.
+2. **Binary specification:** define the XVROS BIN container, versioning, alignment and validation rules. The v1 draft is now published in `docs/XVROS_BIN_FORMAT.md`.
 3. **Minimal core:** create a small, auditable startup component that can initialize only the hardware services required for a safe diagnostic screen.
 4. **FIRM packaging:** implement a standards-compatible FIRM container only after its format and execution requirements are verified against reliable documentation and test fixtures.
-5. **Automated validation:** check magic/header fields, section bounds, alignment, load ranges, entry-point validity, checksums and reproducible build metadata.
+5. **Automated validation:** validate FIRM structure and XVROS BIN structure independently.
 6. **Non-destructive testing:** test through a documented chainloading/development path that leaves the console's existing firmware and recovery options intact.
 7. **Release qualification:** publish `.firm` and `.bin` only after independent structural validation and successful tests on the stated hardware.
+
+## XVROS BIN v1 validator
+
+A structural validator is available at `tools/validate_xvbin.py`. Its unit tests are in `tools/test_validate_xvbin.py`, and GitHub Actions runs them through `.github/workflows/validate.yml`.
+
+The validator checks the v1 header, bounds, entry offset, exact file length and payload CRC-32. CRC-32 detects accidental corruption; it is not a signature. Passing validation does not mean a payload is executable or bootable.
 
 ## Safety and release rules
 
@@ -51,11 +57,12 @@ Initial target: New Nintendo 2DS XL (Nintendo 3DS family), with compatibility cl
 - [x] Firmware target directory and initial format boundary documented
 - [x] Separate `.firm` and `.bin` deliverables identified
 - [x] START-at-power-on chainloader goal documented
+- [x] XVROS BIN v1 draft format specified
+- [x] Initial BIN structural validator and unit tests added
+- [ ] GitHub Actions validator run verified
 - [ ] Verified FIRM format specification and boot-path reference
-- [ ] Defined XVROS raw BIN format and loader contract
 - [ ] Minimal diagnostic core
 - [ ] FIRM packer and structural validator
-- [ ] BIN packer and structural validator
 - [ ] Non-destructive hardware testing
 - [ ] Qualified release artifacts
 
