@@ -60,7 +60,7 @@ The validator checks the v1 header, bounds, entry offset, exact file length and 
 - [x] XVROS BIN v1 draft format specified
 - [x] Initial Python BIN structural validator and unit tests added
 - [x] Portable C BIN validator and host tests added
-- [ ] GitHub Actions Python and C validator runs verified
+- [x] GitHub Actions Python and C validator runs verified (6 Python tests and 6 C checks passed)
 - [ ] Verified FIRM format specification and boot-path reference
 - [ ] Minimal diagnostic core
 - [ ] FIRM packer and structural validator
