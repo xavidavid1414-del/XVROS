@@ -7,7 +7,7 @@ include $(DEVKITARM)/3ds_rules
 
 TARGET      := XVROS
 BUILD       := build
-SOURCES     := source source/wifi
+SOURCES     := source source/wifi source/core
 INCLUDES    := include
 
 ARCH        := -march=armv6k -mtune=mpcore -mfloat-abi=hard
