@@ -13,7 +13,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Run XVROS BIN validator tests
+      - name: Run XVROS BIN Python validator tests
         run: |
           cd tools
           python3 -m unittest -v
+
+  xvbin-c-validator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Compile C validator with strict warnings
+        run: gcc -std=c11 -Wall -Wextra -Werror -pedantic firmware/xvbin.c firmware/test_xvbin.c -o xvbin-c-tests
+      - name: Run C validator tests
+        run: ./xvbin-c-tests
