@@ -15,7 +15,9 @@ CFLAGS      := -g -Wall -Wextra -O2 -mword-relocations -ffunction-sections $(ARC
 CFLAGS      += $(INCLUDE) -D__3DS__
 CXXFLAGS    := $(CFLAGS) -fno-rtti -fno-exceptions
 ASFLAGS     := -g $(ARCH)
-LDFLAGS     := -specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*).map -Wl,--gc-sections
+# Keep compiler-only CPU options out of LDFLAGS: the linker interprets
+# -mfloat-abi=hard as an unsupported emulation mode when passed directly.
+LDFLAGS     := -specs=3dsx.specs -g -Wl,-Map,$(notdir $*).map -Wl,--gc-sections
 LIBS        := -lctru
 
 .PHONY: all clean
