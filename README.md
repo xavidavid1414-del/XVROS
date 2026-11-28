@@ -4,6 +4,12 @@ XVROS is an independent homebrew system environment for the **New Nintendo 2DS X
 
 The first development target is a safe, installable Nintendo 3DS homebrew application. The project is structured so its desktop, system services, applications, emulator frontends, connectivity layer and future boot components can be developed as separate modules.
 
+## Community
+
+Join the XVROS Discord community to follow development, share feedback and connect with other members:
+
+**[Join the XVROS Discord server](https://discord.gg/YDkRCPHw5R)**
+
 ## Current status
 
 - [x] Dual-screen homebrew shell foundation
